@@ -6,16 +6,28 @@ import Notiflix from 'notiflix';
 //  console.log(res.data);
 //});
 const wordInput = document.querySelector('.search-form');
+const API_KEY = '34647684-abfdb43770480e65049b2781c';
 
 const searchParams = new URLSearchParams({
-  key: '34647684-abfdb43770480e65049b2781c',
+  key: API_KEY,
   q: wordInput,
   image_type: 'photo',
   orientation: 'horizontal',
   safesearch: true,
 });
 
-const IMAGES_URL = 'https://pixabay.com/api/?${searchParams}';
+const responseParams = {
+  webformatURL,
+  largeImageURL,
+  tags,
+  likes,
+  views,
+  comments,
+  downloads,
+};
+
+const IMAGES_URL =
+  'https://pixabay.com/api/?${searchParams}' + '${responseParams}';
 
 const fetchImages = async () => {
   const response = await axios.get(IMAGES_URL);
