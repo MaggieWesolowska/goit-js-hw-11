@@ -6,6 +6,9 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 const wordInput = document.querySelector('.search-form');
 const gallery = document.querySelector('.gallery');
 const form = document.querySelector('.search-form');
+const loadMoreBtn = document.querySelector('.load-more');
+
+let page = 1;
 
 const API_KEY = '34647684-abfdb43770480e65049b2781c';
 
@@ -32,6 +35,23 @@ form.addEventListener('submit', () => {
     });
 });
 
+loadMoreBtn.addEventListener('click', images => {
+  if (images > totalImages) {
+    return Notiflix.Notify.info(
+      "We're sorry, but you've reached the end of search results."
+    );
+  } else {
+    fetchImages()
+      .then(images => {
+        page += 1;
+        if (page > 1) {
+          loadMoreBtn.textContent = 'Load more posts';
+        }
+      })
+      .catch(error => console.log(error));
+  }
+});
+
 const fetchImages = async () => {
   const response = await axios.get(IMAGES_URL);
   console.log(response);
@@ -43,11 +63,9 @@ const fetchImages = async () => {
 };
 
 fetchImages();
-// .then(images => console.log(images))
-// .catch(error => console.error(error));
 
 const renderImages = () => {
-  const simgleImage = {
+  const singleImage = {
     linkSmall: config.url,
     linkLarge: largeImageURL,
     tags: '',
