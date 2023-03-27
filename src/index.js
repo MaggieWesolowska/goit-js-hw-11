@@ -17,12 +17,14 @@ const searchParams = new URLSearchParams({
   image_type: 'photo',
   orientation: 'horizontal',
   safesearch: true,
+  // page: page,
 });
 
 const IMAGES_URL =
   'https://pixabay.com/api/?key=' + API_KEY + '&${searchParams}';
 
-form.addEventListener('submit', () => {
+form.addEventListener('submit', event => {
+  event.preventDefault();
   fetchImages(wordInput)
     .then(images => {
       renderImages(images);
@@ -64,8 +66,8 @@ const fetchImages = async () => {
 
 fetchImages();
 
-const renderImages = () => {
-  const singleImage = {
+const renderImages = images => {
+  const photoCard = {
     linkSmall: config.url,
     linkLarge: largeImageURL,
     tags: '',
