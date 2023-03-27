@@ -9,6 +9,7 @@ const form = document.querySelector('.search-form');
 const loadMoreBtn = document.querySelector('.load-more');
 
 let page = 1;
+let limit = 40;
 
 const API_KEY = '34647684-abfdb43770480e65049b2781c';
 
@@ -18,6 +19,7 @@ const searchParams = new URLSearchParams({
   orientation: 'horizontal',
   safesearch: true,
   // page: page,
+  // limit: limit,
 });
 
 const IMAGES_URL =
@@ -38,7 +40,7 @@ form.addEventListener('submit', event => {
 });
 
 loadMoreBtn.addEventListener('click', images => {
-  if (images > totalImages) {
+  if ((images.length = totalHits)) {
     return Notiflix.Notify.info(
       "We're sorry, but you've reached the end of search results."
     );
@@ -98,4 +100,13 @@ const renderImages = images => {
 </div>`;
     })
     .join('');
+
+  gallery.insertAdjacentHTML('afterbegin', markupImages);
 };
+
+let lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captions: true,
+  captionPosition: 'bottom',
+  captionDelay: 250,
+});
