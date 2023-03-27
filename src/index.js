@@ -1,7 +1,12 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const wordInput = document.querySelector('.search-form');
+const gallery = document.querySelector('.gallery');
+const form = document.querySelector('.search-form');
+
 const API_KEY = '34647684-abfdb43770480e65049b2781c';
 
 const searchParams = new URLSearchParams({
@@ -12,14 +17,65 @@ const searchParams = new URLSearchParams({
 });
 
 const IMAGES_URL =
-  'https://pixabay.com/api/?key=' + API_KEY + '${searchParams}';
+  'https://pixabay.com/api/?key=' + API_KEY + '&${searchParams}';
 
-const fetchImages = async q => {
-  const token = await axios.get('https://pixabay.com/api/?key=' + API_KEY);
+form.addEventListener('submit', () => {
+  fetchImages(wordInput)
+    .then(images => {
+      renderImages(images);
+      console.log(images);
+    })
+    .catch(error => {
+      Notiflix.Notify.failure(
+        'Sorry, there are no images matching your search query. Please try again.'
+      );
+    });
+});
+
+const fetchImages = async () => {
   const response = await axios.get(IMAGES_URL);
+  console.log(response);
   if (!response.ok) {
-    throw new Error(response.statusText);
+    throw new Error(response.status);
   }
   const images = await response.json();
   return images;
+};
+
+fetchImages();
+// .then(images => console.log(images))
+// .catch(error => console.error(error));
+
+const renderImages = () => {
+  const simgleImage = {
+    linkSmall: config.url,
+    linkLarge: largeImageURL,
+    tags: '',
+    likes: 0,
+    views: 0,
+    comments: 0,
+    downloads: 0,
+  };
+  const markupImages = images
+    .map(image => {
+      return `
+    <div class="photo-card">
+  <img src="" alt="" loading="lazy" />
+  <div class="info">
+    <p class="info-item">
+      <b>Likes</b>
+    </p>
+    <p class="info-item">
+      <b>Views</b>
+    </p>
+    <p class="info-item">
+      <b>Comments</b>
+    </p>
+    <p class="info-item">
+      <b>Downloads</b>
+    </p>
+  </div>
+</div>`;
+    })
+    .join('');
 };
