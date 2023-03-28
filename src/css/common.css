@@ -47,7 +47,7 @@
   transform: scale(1.05);
 }
 
-.load-btn {
+.load-more {
   height: 40px;
   color: #fff;
   padding: 7px 16px;
@@ -61,7 +61,7 @@
   transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.load-btn:hover,
-.load-btn:focus-within {
+.load-more:hover,
+.load-more:focus-within {
   transform: scale(1.05);
 }

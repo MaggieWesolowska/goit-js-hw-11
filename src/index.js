@@ -18,8 +18,6 @@ const searchParams = new URLSearchParams({
   image_type: 'photo',
   orientation: 'horizontal',
   safesearch: true,
-  // page: page,
-  // limit: limit,
 });
 
 const IMAGES_URL =
@@ -47,6 +45,7 @@ loadMoreBtn.addEventListener('click', images => {
   } else {
     fetchImages()
       .then(images => {
+        renderImages(images);
         page += 1;
         if (page > 1) {
           loadMoreBtn.textContent = 'Load more posts';
@@ -57,7 +56,11 @@ loadMoreBtn.addEventListener('click', images => {
 });
 
 const fetchImages = async () => {
-  const response = await axios.get(IMAGES_URL);
+  const params = newURLSearchParams({
+    page: page,
+    limit: limit,
+  });
+  const response = await axios.get(IMAGES_URL + params);
   console.log(response);
   if (!response.ok) {
     throw new Error(response.status);
@@ -66,7 +69,7 @@ const fetchImages = async () => {
   return images;
 };
 
-fetchImages();
+// fetchImages();
 
 const renderImages = images => {
   const photoCard = {
