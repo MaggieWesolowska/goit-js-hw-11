@@ -105,8 +105,8 @@ const renderImages = images => {
 };
 
 let lightbox = new SimpleLightbox('.gallery a', {
-  captionsData: 'alt',
-  captions: true,
-  captionPosition: 'bottom',
-  captionDelay: 250,
+  nav: false,
+  captions: false,
+  animationSlide: false,
+  loop: false,
 });
