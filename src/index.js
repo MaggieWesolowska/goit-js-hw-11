@@ -105,8 +105,5 @@ const renderImages = images => {
 };
 
 let lightbox = new SimpleLightbox('.gallery a', {
-  nav: false,
   captions: false,
-  animationSlide: false,
-  loop: false,
 });
