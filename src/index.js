@@ -43,7 +43,7 @@ loadMoreBtn.addEventListener('click', images => {
       "We're sorry, but you've reached the end of search results."
     );
   } else {
-    fetchImages()
+    fetchImages(page, limit)
       .then(images => {
         renderImages(images);
         page += 1;
@@ -56,22 +56,22 @@ loadMoreBtn.addEventListener('click', images => {
 });
 
 const fetchImages = async () => {
-  const params = newURLSearchParams({
-    page: page,
-    limit: limit,
-  });
-  const response = await axios.get(IMAGES_URL + params);
-  console.log(response);
-  if (!response.ok) {
-    throw new Error(response.status);
+  try {
+    const params = newURLSearchParams({
+      page: page,
+      limit: limit,
+    });
+    const response = await axios.get(IMAGES_URL + params);
+    const images = await response.json();
+    console.log(images);
+  } catch (error) {
+    console.log(error.message);
   }
-  const images = await response.json();
-  return images;
 };
 
 // fetchImages();
 
-const renderImages = images => {
+function renderImages(images) {
   const photoCard = {
     linkSmall: config.url,
     linkLarge: largeImageURL,
@@ -105,7 +105,7 @@ const renderImages = images => {
     .join('');
 
   gallery.insertAdjacentHTML('afterbegin', markupImages);
-};
+}
 
 let lightbox = new SimpleLightbox('.gallery a', {
   captions: false,
