@@ -23,9 +23,9 @@ const searchParams = new URLSearchParams({
 const IMAGES_URL =
   'https://pixabay.com/api/?key=' + API_KEY + '&${searchParams}';
 
-form.addEventListener('submit', event => {
+form.addEventListener('submit', async event => {
   event.preventDefault();
-  fetchImages(wordInput)
+  const fetchImages = await fetchImages(images)
     .then(images => {
       renderImages(images);
       console.log(images);
