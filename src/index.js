@@ -33,17 +33,21 @@ const IMAGES_URL = 'https://pixabay.com/api/';
 
 form.addEventListener('submit', async event => {
   event.preventDefault();
+
+  // defining and assigning value to the search word/phrase from the input:
   const wordSelection = inputDOM.value;
   searchParams.q = wordSelection;
+
+  // starting search at page 1:
   page = 1;
 
   const fetchedImages = await fetchImages();
   Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
   gallery.innerHTML = '';
-
   renderImages(fetchedImages);
   loadMoreBtn.style.display = 'inline';
 
+  // adding info and removing "load more" button in case the result returns less than 40 images:
   if (page === lastPage) {
     loadMoreBtn.style.display = 'none';
     Notiflix.Notify.info(
@@ -64,10 +68,11 @@ loadMoreBtn.addEventListener('click', async event => {
   } else {
     loadMoreBtn.style.display = 'inline';
   }
+
+  // code for smooth scrolling (already provided):
   const { height: cardHeight } = document
     .querySelector('.gallery')
     .firstElementChild.getBoundingClientRect();
-
   window.scrollBy({
     top: cardHeight * 2,
     behavior: 'smooth',
@@ -80,9 +85,15 @@ const fetchImages = async (page = 1) => {
     const response = await axios.get(IMAGES_URL, {
       params: searchParams,
     });
+
+    // instead of fetching json(), we use 'response' to provide data.totalHits to show total images for each search:
     const images = await response.data.hits;
     console.log(images);
+
+    // assigning the value from the response to the variable: totalHits (let totalHits = 0):
     totalHits = response.data.totalHits;
+
+    //calculating number of pages for each search and rounding up to full page using Math.ceil:
     lastPage = Math.ceil(totalHits / 40);
     return images;
   } catch (error) {
