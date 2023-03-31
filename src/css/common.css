@@ -84,13 +84,19 @@
   padding: 15px;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 680px) {
   .gallery {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 980px) {
+  .gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (min-width: 1180px) {
   .gallery {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -120,6 +126,6 @@ img {
   font-size: small;
   text-align: center;
   color: #00415a;
-  padding: 5px;
+  padding: 10px 10px;
   letter-spacing: 0.03em;
 }
