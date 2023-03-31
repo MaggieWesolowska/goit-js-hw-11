@@ -44,6 +44,16 @@ form.addEventListener('submit', async event => {
   const fetchedImages = await fetchImages();
   Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
   gallery.innerHTML = '';
+  // if ((totalHits = 0)) {
+  //   Notiflix.Notify.failure(
+  //     'Sorry, there are no images matching your search query. Please try again.'
+  //   );
+  //   loadMoreBtn.style.display = 'none';
+  // } else {
+  //   Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+  //   gallery.innerHTML = '';
+  // }
+
   renderImages(fetchedImages);
   loadMoreBtn.style.display = 'inline';
 
