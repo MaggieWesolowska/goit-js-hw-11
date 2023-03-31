@@ -36,11 +36,20 @@ form.addEventListener('submit', async event => {
   const wordSelection = inputDOM.value;
   searchParams.q = wordSelection;
   page = 1;
+
   const fetchedImages = await fetchImages();
   Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
   gallery.innerHTML = '';
+
   renderImages(fetchedImages);
   loadMoreBtn.style.display = 'inline';
+
+  if (page === lastPage) {
+    loadMoreBtn.style.display = 'none';
+    Notiflix.Notify.info(
+      "We're sorry, but you've reached the end of search results."
+    );
+  }
 });
 
 loadMoreBtn.addEventListener('click', async event => {
@@ -55,12 +64,6 @@ loadMoreBtn.addEventListener('click', async event => {
   } else {
     loadMoreBtn.style.display = 'inline';
   }
-  // const cardHeight = document.querySelector('.photo-card').scrollHeight;
-  // console.log(cardHeight);
-  // window.scrollBy({
-  //   top: cardHeight * 2,
-  //   behavior: 'smooth',
-  // });
   const { height: cardHeight } = document
     .querySelector('.gallery')
     .firstElementChild.getBoundingClientRect();
