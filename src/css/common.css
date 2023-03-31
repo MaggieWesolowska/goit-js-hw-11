@@ -17,6 +17,18 @@
   padding: 10px;
 }
 
+.gallery {
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 15px;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
 .input {
   color: #6e6d70;
   font-size: 15px;
