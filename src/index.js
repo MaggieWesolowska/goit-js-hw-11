@@ -42,20 +42,21 @@ form.addEventListener('submit', async event => {
   page = 1;
 
   const fetchedImages = await fetchImages();
-  Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
-  gallery.innerHTML = '';
-  // if ((totalHits = 0)) {
-  //   Notiflix.Notify.failure(
-  //     'Sorry, there are no images matching your search query. Please try again.'
-  //   );
-  //   loadMoreBtn.style.display = 'none';
-  // } else {
-  //   Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
-  //   gallery.innerHTML = '';
-  // }
+  // Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+  // gallery.innerHTML = '';
+  if (totalHits === 0) {
+    Notiflix.Notify.failure(
+      'Sorry, there are no images matching your search query. Please try again.'
+    );
+    loadMoreBtn.style.display = 'none';
+    gallery.innerHTML = '';
+  } else {
+    Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+    gallery.innerHTML = '';
+  }
 
   renderImages(fetchedImages);
-  loadMoreBtn.style.display = 'inline';
+  loadMoreBtn.style.display = 'block';
 
   // adding info and removing "load more" button in case the result returns less than 40 images:
   if (page === lastPage) {
@@ -76,7 +77,7 @@ loadMoreBtn.addEventListener('click', async event => {
       "We're sorry, but you've reached the end of search results."
     );
   } else {
-    loadMoreBtn.style.display = 'inline';
+    loadMoreBtn.style.display = 'block';
   }
 
   // code for smooth scrolling (already provided):

@@ -61,14 +61,15 @@
 
 .load-more {
   color: #fff;
-  padding: 10px 30px;
-  font-size: 30px;
+  padding: 15px 60px;
+  margin-bottom: 15px;
+  font-size: 25px;
   border-radius: 5px;
   border: none;
   cursor: pointer;
-  background: #6e6d70;
+  background: #00415a;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.4));
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -119,7 +120,7 @@ img {
 .info {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  /* justify-content: space-around; */
 }
 
 .info-item {
