@@ -42,18 +42,8 @@ form.addEventListener('submit', async event => {
   page = 1;
 
   const fetchedImages = await fetchImages();
-  // Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
-  // gallery.innerHTML = '';
-  if (totalHits === 0) {
-    Notiflix.Notify.failure(
-      'Sorry, there are no images matching your search query. Please try again.'
-    );
-    loadMoreBtn.style.display = 'none';
-    gallery.innerHTML = '';
-  } else {
-    Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
-    gallery.innerHTML = '';
-  }
+  Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+  gallery.innerHTML = '';
 
   renderImages(fetchedImages);
   loadMoreBtn.style.display = 'block';
@@ -64,6 +54,13 @@ form.addEventListener('submit', async event => {
     Notiflix.Notify.info(
       "We're sorry, but you've reached the end of search results."
     );
+    // adding warning and removing "load more" button if search returns 0 images:
+  } else if (totalHits === 0) {
+    Notiflix.Notify.failure(
+      'Sorry, there are no images matching your search query. Please try again.'
+    );
+    loadMoreBtn.style.display = 'none';
+    gallery.innerHTML = '';
   }
 });
 
@@ -99,7 +96,6 @@ const fetchImages = async (page = 1) => {
 
     // instead of fetching json(), we use 'response' to provide data.totalHits to show total images for each search:
     const images = await response.data.hits;
-    console.log(images);
 
     // assigning the value from the response to the variable: totalHits (let totalHits = 0):
     totalHits = response.data.totalHits;
