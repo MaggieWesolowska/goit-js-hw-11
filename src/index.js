@@ -64,6 +64,10 @@ loadMoreBtn.addEventListener('click', async event => {
     loadMoreBtn.style.display = 'block';
   }
 
+  smoothScrolling(page);
+});
+
+const smoothScrolling = () => {
   // code for smooth scrolling (already provided):
   const { height: cardHeight } = document
     .querySelector('.gallery')
@@ -72,7 +76,7 @@ loadMoreBtn.addEventListener('click', async event => {
     top: cardHeight * 2,
     behavior: 'smooth',
   });
-});
+};
 
 const fetchImages = async (page = 1) => {
   searchParams.page = page;
