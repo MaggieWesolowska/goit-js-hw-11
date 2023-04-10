@@ -83,6 +83,7 @@ const fetchImages = async (page = 1) => {
 
     // instead of fetching json(), we use 'response' to provide data.totalHits to show total images for each search:
     const images = await response.data.hits;
+    console.log(response.data.hits);
 
     // assigning the value from the response to the variable: totalHits (let totalHits = 0):
     totalHits = response.data.totalHits;
