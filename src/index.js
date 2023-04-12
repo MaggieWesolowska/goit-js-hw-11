@@ -80,6 +80,17 @@ const smoothScrolling = () => {
 
 const fetchImages = async (page = 1) => {
   searchParams.page = page;
+
+  //using axios:
+  //   axios.defaults.baseURL = 'https://api.example.com';
+  // const axiosInstance = axios.create();
+  // axiosInstance.get("/apiExampleEndpoint");
+  // or:
+  // const axiosInstance = axios.create({
+  //   baseUrl: 'https://api.example.com'
+  // });
+
+  axiosInstance.get('/apiExampleEndpoint');
   try {
     const response = await axios.get(IMAGES_URL, {
       params: searchParams,
