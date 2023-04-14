@@ -89,8 +89,8 @@ const fetchImages = async (page = 1) => {
   // const axiosInstance = axios.create({
   //   baseUrl: 'https://api.example.com'
   // });
+  // axiosInstance.get('/apiExampleEndpoint');
 
-  axiosInstance.get('/apiExampleEndpoint');
   try {
     const response = await axios.get(IMAGES_URL, {
       params: searchParams,
